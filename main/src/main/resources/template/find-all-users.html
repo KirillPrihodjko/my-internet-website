@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Find All users</title>
+</head>
+
+<body>
+
+<h1>Find Person</h1>
+
+<form action="#" th:action="@{/ui/find-users}" th:object="${user}" method="get">
+    <p>Id: <label>
+        <input type="number" th:field="*{id}"/>
+    </label></p>
+    <p>Date Of Birth: <label>
+        <input type="text" th:field="*{dateOfBirth}"/>
+    </label></p>
+    <p><input type="submit" value="Find"/> <input type="reset" value="Reset"/></p>
+</form>
+
+</body>
+</html>

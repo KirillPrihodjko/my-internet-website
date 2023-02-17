@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Data</title>
+</head>
+<body>
+<input type="text">
+
+<h1>Welcome!</h1>
+<p><a href="/ui/find-all-users"> Find all users </a></p>
+<p><a href="/ui/books/1"> Find all users </a></p>
+
+<table id="books">
+    <tr>
+        <th> Id</th>
+        <th> Author</th>
+        <th> Name</th>
+        <th> Number Pages</th>
+    </tr>
+</table>
+
+<button id="btn_next">NextPage</button>
+<button id="btn_previous">PreviousPage</button>
+
+<script>
+
+    let numberPage = 1;
+
+    function getContent() {
+        fetch("/rest/books/" + numberPage).then(data => data.json()).then(data =>
+            data.forEach(generateTableRow));
+
+    }
+
+    getContent()
+    document.querySelector("#btn_next").addEventListener('click', function () {
+        numberPage++;
+        document.querySelector("#books").innerHTML = '';
+        getContent()
+    })
+
+    document.querySelector("#btn_previous").addEventListener('click', function () {
+        numberPage--;
+        document.querySelector("#books").innerHTML = '';
+        getContent()
+    })
+
+    function generateTableRow(element) {
+        let tr = document.createElement('tr');
+        let tdId = document.createElement('td');
+        tdId.textContent = element.id;
+        let tdAuthor = document.createElement('td');
+        tdAuthor.textContent = element.author;
+        let tdName = document.createElement('td');
+        tdName.textContent = element.name;
+        let tdNumber = document.createElement('td');
+        tdNumber.textContent = element.numberPages;
+        tr.append(tdId);
+        tr.append(tdAuthor);
+        tr.append(tdName);
+        tr.append(tdNumber);
+        document.querySelector("#books").append(tr);
+    }
+
+</script>
+
+</body>
+</html>
