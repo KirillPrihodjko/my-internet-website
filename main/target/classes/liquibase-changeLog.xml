@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+
+    <changeSet id="create.table.users" author="kirils.prihodjko">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="users"/>
+            </not>
+        </preConditions>
+        <createTable tableName="users">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="first_name" type="VARCHAR(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="VARCHAR(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_of_birth" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!--
+    <changeSet id="add.column.user_id.to.trainingDays" author="kirils.prihodjko">
+        <addColumn tableName="training_days">
+            <column name="user_id" type="BIGINT"/>
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="training_days"
+                                 constraintName="fk_training_days_user_id"
+                                 baseColumnNames="user_id"
+                                 referencedTableName="users"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+
+    <changeSet id="add.column.user_id.to.quiz" author="kirils.prihodjko">
+        <addColumn tableName="quiz">
+            <column name="user_id" type="BIGINT"/>
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="quiz"
+                                 constraintName="fk_quiz_user_id"
+                                 baseColumnNames="user_id"
+                                 referencedTableName="users"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+    -->
+</databaseChangeLog>
+
