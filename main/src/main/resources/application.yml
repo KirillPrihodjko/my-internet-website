@@ -1,11 +1,11 @@
 spring:
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
   datasource:
     password: root
     username: root
-    url: jdbc:mysql://localhost:8080/website
+    url: jdbc:mysql://localhost:3306/website
     driver-class-name: com.mysql.cj.jdbc.Driver
   liquibase:
     change-log: liquibase-changeLog.xml

@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
 		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
 
-    <changeSet id="create.table.users" author="igors.raginskis">
+    <changeSet id="create.table.users" author="kirils.prihodjko">
         <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="users"/>
@@ -15,74 +15,22 @@
             <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="nickname" type="VARCHAR(12)">
+            <column name="first_name" type="VARCHAR(12)">
                 <constraints nullable="false"/>
             </column>
-            <column name="password" type="VARCHAR(14)">
+            <column name="last_name" type="VARCHAR(14)">
                 <constraints nullable="false"/>
             </column>
-            <column name="mail" type="VARCHAR(64)">
+            <column name="email" type="VARCHAR(64)">
                 <constraints nullable="false"/>
             </column>
-            <column name="online_status" type="BIT(1)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="training_days_count" type="BIGINT">
+            <column name="date_of_birth" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
 
-    <changeSet id="create.table.trainingDays" author="kirils.prihodjko">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <tableExists tableName="training_days"/>
-            </not>
-        </preConditions>
-        <createTable tableName="training_days">
-            <column name="id" type="BIGINT" autoIncrement="true">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="description" type="varchar(50)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="training_day" type="VARCHAR(20)">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-    </changeSet>
-
-    <changeSet id="create.table.quiz" author="kirils.prihodjko">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <tableExists tableName="quiz"/>
-            </not>
-        </preConditions>
-        <createTable tableName="quiz">
-            <column name="id" type="BIGINT" autoIncrement="true">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="gender" type="BIGINT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="age" type="BIGINT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="weight" type="BIGINT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="growth" type="BIGINT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="desired_weight" type="BIGINT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="target" type="VARCHAR(100)">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-    </changeSet>
-
+    <!--
     <changeSet id="add.column.user_id.to.trainingDays" author="kirils.prihodjko">
         <addColumn tableName="training_days">
             <column name="user_id" type="BIGINT"/>
@@ -94,6 +42,7 @@
                                  referencedColumnNames="id"/>
     </changeSet>
 
+
     <changeSet id="add.column.user_id.to.quiz" author="kirils.prihodjko">
         <addColumn tableName="quiz">
             <column name="user_id" type="BIGINT"/>
@@ -104,6 +53,6 @@
                                  referencedTableName="users"
                                  referencedColumnNames="id"/>
     </changeSet>
-
+    -->
 </databaseChangeLog>
 
