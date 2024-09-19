@@ -1,6 +1,5 @@
 package website.config;
 
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -13,7 +12,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import website.core.service.SecurityDetailsService;
-import website.entity.Role;
+import website.entity.user.Role;
 
 import java.util.Base64;
 import java.util.Date;
@@ -25,13 +24,8 @@ import java.util.stream.Collectors;
 public class JwtTokenProvider {
 
     private String secretKey = "Test";
-    private long validityInMilliseconds = 30000; // 1h
+    private static final long validityInMilliSeconds = 30000; // 1h
     private final SecurityDetailsService userService;
-
-
-    public JwtTokenProvider(SecurityDetailsService userService) {
-        this.userService = userService;
-    }
 
     @PostConstruct
     protected void init() {
@@ -44,7 +38,7 @@ public class JwtTokenProvider {
         claims.put("auth", appUserRoles.stream().map(s -> new SimpleGrantedAuthority(s.name())).filter(Objects::nonNull).collect(Collectors.toList()));
 
         Date now = new Date();
-        Date validity = new Date(now.getTime() + validityInMilliseconds);
+        Date validity = new Date(now.getTime() + validityInMilliSeconds);
 
         return Jwts.builder()//
                 .setClaims(claims)//
@@ -61,8 +55,7 @@ public class JwtTokenProvider {
 
     public String getUsername(String token) {
 //try {
-        String userName=Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
-        return userName;
+        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
 /*}catch(JwtException e){
     return null;
 }*/
@@ -84,7 +77,8 @@ public class JwtTokenProvider {
             return false;
         }
     }
+
+    public JwtTokenProvider(SecurityDetailsService userService) {
+        this.userService = userService;
+    }
 }
-
-
-
