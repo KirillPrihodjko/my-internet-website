@@ -1,4 +1,4 @@
-package website.entity;
+package website.entity.user;
 
 import org.springframework.security.core.GrantedAuthority;
 

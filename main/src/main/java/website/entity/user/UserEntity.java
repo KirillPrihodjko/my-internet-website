@@ -1,4 +1,4 @@
-package website.entity;
+package website.entity.user;
 
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.ElementCollection;
@@ -24,10 +24,10 @@ import java.util.Set;
 
 @Data
 @Entity
-@Table(name = "users")
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
+@Table(name = "users")
 public class UserEntity implements UserDetails {
 
     @Id
@@ -40,21 +40,17 @@ public class UserEntity implements UserDetails {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "password")
     private String password;
 
-    @Column(name = "email")
     private String email;
 
     @Column(name = "date_of_birth")
     private String dateOfBirth;
 
-
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "User_UserRole")
+    @CollectionTable(name = "user_role")
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

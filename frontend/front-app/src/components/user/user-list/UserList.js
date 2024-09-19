@@ -1,14 +1,24 @@
 import UserItem from "../user-item/UserItem"
 import {useState, useEffect} from 'react';
-export default function UserList() {
-    const [users, setUsers] = useState([]);
+import {HttpService} from '../../../services/HttpService';
 
-    function getUsers(){
-        fetch('http://localhost:8080/users/all')
+export default function UserList() {
+
+    const [users, setUsers] = useState([]);
+    const [errorMessage, setErrorMessage] = useState('');
+    const httpServise = new HttpService();
+
+    function getUsers() {
+        httpServise.doGet("users/all"
+            , data => setUsers(data)
+            , data => setErrorMessage(data)
+            , true)
+        /*fetch('http://localhost:8080/users/all')
             .then(response=>response.json())
-            .then(data=>setUsers(data));
+            .then(data=>setUsers(data));*/
     }
-    useEffect(()=>getUsers(),
+
+    useEffect(() => getUsers(),
         [])/*elements which call useEffect
         при пустом массиве вызовется 1 раз при загрузке страницы/)//do after render
 
@@ -23,12 +33,12 @@ export default function UserList() {
             </tr>)}
     </table>);*/
     return (
-
-        <table>
-        {users.map(elem=>
-            <UserItem user={elem}/>)}
-    </table>
-
+        <div>
+            <table>
+                {users.map(elem =>
+                    <UserItem user={elem}/>)}
+            </table>
+            <p>{errorMessage}</p>
+        </div>
     );
-
 }

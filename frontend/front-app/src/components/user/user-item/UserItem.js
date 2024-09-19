@@ -1,4 +1,4 @@
-export default function UserItem(props){
+export default function UserItem(props) {
     const {user} = props;
     //const user = props.user
 
@@ -7,20 +7,13 @@ export default function UserItem(props){
     let name = user.name;
     let age = user.age;
     const {name, age} = user;
-
-
-
-
      */
 
     return (
-            <tr>
-                <td>{user.id}</td>
-                <td>{user.firstName}</td>
-                <td>{user.lastName}</td>
-            </tr>
+        <tr>
+            <td>{user.id}</td>
+            <td>{user.firstName}</td>
+            <td>{user.lastName}</td>
+        </tr>
     );
-
-
-
 }

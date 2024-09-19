@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import website.config.JwtTokenProvider;
 import website.dto.UserDto;
-import website.entity.UserEntity;
+import website.entity.user.UserEntity;
 import website.repository.UserRepository;
 
 import java.util.List;
@@ -35,18 +35,17 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
-    private UserDto convert(UserEntity entity) {
-        return new UserDto(entity.getId(), entity.getFirstName(), entity.getLastName(),
-                entity.getDateOfBirth());
-    }
-
     public String login(UserEntity user) {
-
         //authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-        UserEntity savedUser = userRepository.findUserEntityByEmail(user.getUsername());
+        UserEntity savedUser = userRepository.findUserByEmail(user.getUsername());
         if (savedUser != null && savedUser.getPassword().equals(user.getPassword())) {
             return jwtTokenProvider.createToken(savedUser.getUsername(), savedUser.getRoles());
         }
         return null;
+    }
+
+    private UserDto convert(UserEntity entity) {
+        return new UserDto(entity.getId(), entity.getFirstName(), entity.getLastName(),
+                entity.getPassword(), entity.getEmail(), entity.getDateOfBirth(), entity.getRoles());
     }
 }

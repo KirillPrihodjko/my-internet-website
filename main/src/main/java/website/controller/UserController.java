@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import website.core.service.UserService;
 import website.dto.UserDto;
-import website.entity.UserEntity;
+import website.entity.user.UserEntity;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ public class UserController {
 
     @GetMapping("/all")
     @CrossOrigin("*")
-    public ResponseEntity<List <UserDto>> getAll()  {
+    public ResponseEntity<List<UserDto>> getAll() {
         List<UserDto> users = userService.findAll();
         //Thread.sleep(2000);
         return ResponseEntity.ok(users);
@@ -33,13 +33,11 @@ public class UserController {
     @PostMapping("/login")
     @CrossOrigin("*")
     public ResponseEntity<?> login(@RequestBody UserEntity userEntity) {
-
         //authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
         String token = userService.login(userEntity);
         if (token != null) {
             return ResponseEntity.status(HttpStatus.OK).body(token);
         }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User does not exist. Check login and password!");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User does not exist. Check login and password!");
     }
-
 }
